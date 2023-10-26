@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="topnav">
+        <a class="active" href="/">Home</a>
+        <a href="/create">Create user</a>
+    </div>
+    
+    <div class="table-container">
+        <!-- <%= JSON.stringify(listUsers) %> -->
+        <h2 style="padding: 10px 20px; text-align: center;">DANH SÁCH USER</h2>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>EMAIL</th>
+                <th>NAME</th>   
+                <th>CITY</th>   
+                <th>CHỨC NĂNG</th>   
+            </tr>
+
+            <!-- <% for (let i = 0; i < listUsers.length; i++) { %>              
+                <tr>
+                    <td>
+                        <%= listUsers[i].id %> 
+                    </td>
+                    <td>
+                        <%= listUsers[i].email %> 
+                    </td>
+                    <td>
+                        <%= listUsers[i].name %>
+                    </td>
+                    <td>
+                        <%= listUsers[i].city %> 
+                    </td>
+                    <td>
+                        <button>EDIT</button>
+                        <button>DELETE</button>
+                    </td>
+                </tr>
+            <% } %> -->
+
+
+            <% listUsers.forEach(function(user) { %>
+                <tr>
+                    <td>
+                        <%= user.id %> 
+                    </td>
+                    <td>
+                        <%= user.email %> 
+                    </td>
+                    <td>
+                        <%= user.name %>
+                    </td>
+                    <td>
+                        <%= user.city %> 
+                    </td>
+                    <td>                
+                        <a 
+                            class="btn btn-success button-SUA-XOA" 
+                            href="/update/<%= user.id %>">EDIT</a>   
+                            
+                        <form action="/delete-user/<%= user.id %>" method="post">
+                            <buTton class="btn btn-danger button-SUA-XOA" >DELETE</butTon>
+                        </form>
+                                            
+                        
+                    </td>
+                </tr>
+            <% }); %> 
+            
+        </table>
+    </div>
+</body>
+</html>
