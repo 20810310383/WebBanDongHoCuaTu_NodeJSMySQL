@@ -1,9 +1,7 @@
 const express = require('express');
 const { 
     homeTrangChu,
-    getHomePage,
-    
-
+    getHomePage ,
     
 } = require('../controllers/trangChuHomeController');
 
@@ -14,9 +12,18 @@ const {
 
 const { 
     ChiTietSP,
-    getChiTietSP,
-    
+    getChiTietSP
 } = require('../controllers/chiTietSPController');
+
+const { 
+    loginHomeKH
+} = require('../controllers/loginKHContrller');
+
+const { 
+    dangKyKH,
+    dangNhapKH,
+    dangXuat
+} = require('../controllers/loginKHContrller');
 
 const router = express.Router();
 
@@ -29,6 +36,20 @@ router.post('/search-post', TrangTimKiem_post)
 // chi tiết sp
 router.get('/chitietsp', getChiTietSP)
 //router.get('/chitietsp', ChiTietSP)
+
+// form login KH
+router.get('/login-kh', loginHomeKH)
+
+// xu ly dang ky tk
+router.post('/dang-ky', dangKyKH)
+
+// xu ly dang nhap tk
+router.post('/dang-nhap', dangNhapKH)
+
+// xu ly dang xuat
+router.get('/dang-xuat', dangXuat)
+
+
 
 
 

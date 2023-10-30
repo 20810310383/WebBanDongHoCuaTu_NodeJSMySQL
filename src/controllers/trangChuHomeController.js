@@ -18,9 +18,48 @@ const getHomePage = async (req, res) => {
     return res.render("TrangChu/home.ejs", {listSP: allSP, spNam: allSpNam, spNu: allSpNu})
 }
 
+// dang nhap
+const dangNhapKH_2 = async (req, res) => {
+    let account = req.body.taikhoan;
+    let password = req.body.matkhau;
+
+    if (account && password) {
+        try {
+            const [results, fields] = await connection.query('SELECT TaiKhoan, MatKhau FROM NguoiDung WHERE TaiKhoan = ? AND MatKhau = ?',  [account, password])
+            
+            if (results.length > 0) {
+                // Authenticate the user
+				req.session.loggedIn = true;
+				req.session.account = account;
+                
+				// Redirect to home page
+				//res.redirect('/');
+                //res.send('thành công');
+                res.render('TrangChu/home.ejs', { loggedIn: true, account });
+            } else {
+                res.send('Tài khoản hoặc mật khẩu không chính xác!');
+            }
+
+        } catch (error) {
+            console.error("Lỗi truy vấn:", error)
+            res.status(500).send('Lỗi trong quá trình xử lý đăng ký.')
+
+        } finally {
+            res.end()
+        }
+
+    } else {
+        res.status(400).send('Hãy nhập tài khoản và mật khẩu!')
+        res.end()
+    }
+
+}
+
 
 
 module.exports = {
     homeTrangChu,
     getHomePage,
+    
+    
 }

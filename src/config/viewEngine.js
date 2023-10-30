@@ -11,6 +11,7 @@ const configViewEngine = (app) => {
     
 
     app.use(express.static(path.join('./src', 'public')))
+    app.use(express.static(path.join('./src', 'controllers')))
 
 }
 

@@ -411,3 +411,21 @@
     })
 
 </script> 
+
+
+
+
+
+
+
+
+<!-- ------------------ -->
+<% if (loggedIn) { %>
+    <li>
+        <span style="font-size: 20px; color: white; font-weight: bold;">
+            Xin Chào: <span style="color: red;"><%= account %></span>
+        </span>
+    </li>
+<% } else { %>
+    <li><a style="font-size: 16px; font-weight: bold;" href="/login-kh">Đăng Nhập</a></li>
+<% } %>     
