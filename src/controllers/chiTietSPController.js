@@ -13,13 +13,23 @@ const ChiTietSP = async (req, res) => {
 }
 
 const getChiTietSP = async (req, res) => {
+    var sessions = req.session;
+    let account = sessions.account
+    let loggedIn = sessions.loggedIn
+    let ten = sessions.ten
+    
+    console.log(sessions);
+    console.log(account);
+    console.log(loggedIn);
+    console.log(ten);
+
     const spID = req.query.idChiTietSP
 
     let sanpam = await getUserId(spID)
 
     let allSPCT = await getAllSP()            // lấy dữ liệu tất cả sản phẩm 
 
-    res.render("TrangChu/chiTietSP.ejs", {CTSanPham: sanpam, listSP: allSPCT})
+    res.render("TrangChu/chiTietSP.ejs", {CTSanPham: sanpam, listSP: allSPCT, logIn: loggedIn, account})
 }
 
 

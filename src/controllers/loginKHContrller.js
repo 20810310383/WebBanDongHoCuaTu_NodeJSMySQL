@@ -89,20 +89,28 @@ const dangKyKH_test =  (req, res) => {
 const dangNhapKH = async (req, res) => {
     let account = req.body.taikhoan;
     let password = req.body.matkhau;
+    var sessions
 
     if (account && password) {
         try {
-            const [results, fields] = await connection.query('SELECT TaiKhoan, MatKhau FROM NguoiDung WHERE TaiKhoan = ? AND MatKhau = ?',  [account, password])
+            const [results, fields] = await connection.query('SELECT TaiKhoan, MatKhau FROM NguoiDung WHERE TaiKhoan = ? AND MatKhau = ? ',  [account, password])
             
             if (results.length > 0) {
                 // Authenticate the user
 				req.session.loggedIn = true
 				req.session.account = account
-                res.locals.account = req.session.account
 
-				res.redirect('/');
+                req.session.ten = "tu mo";
+
+                sessions=req.session;
+                console.log(sessions);
+                //res.cookie('user_account', req.session.account);
+                // req.flash('success', 'Đăng nhập thành công')
+                // res.locals.message = req.flash();
+				//res.redirect('/');
                 //res.send('thành công');
-                //return res.render('TrangChu/home.ejs', { loggedIn: true, account });
+                //req.flash('success', 'Đăng nhập thành công')
+                res.redirect('/');
             } else {
                 res.send('Tài khoản hoặc mật khẩu không chính xác!');
             }
@@ -144,26 +152,20 @@ const dangNhapKH = async (req, res) => {
 	// }
 }
 
-const load_trang_home = (req, res) => {
-    let account = req.body.taikhoan;
-    let password = req.body.matkhau;
-
-    if (req.session && req.session.TaiKhoan) {
-        const { HoTen } = req.session.TaiKhoan
-        res.send(`Xin Chào: ${HoTen} | <a href="/DangXuat">Đăng Xuất</a>`)
-    } else {
-        res.send('Bạn chưa đăng nhập.')
-    }
-}
-
-
 // dang xuat
 const dangXuat = (req, res) => {
-    req.session = null
+    req.session.destroy(err => {
+      if (err) {
+        console.error("Lỗi khi đăng xuất:", err);
+        res.status(500).send('Lỗi khi đăng xuất');
+      } else {
+        res.redirect('/'); // Chuyển hướng về trang chính sau khi đăng xuất
+      }
+    });
 
-    // Redirect to the login page
-    res.redirect('/')
+    console.log(req.session.destroy());
 }
+  
 
 
 module.exports = {

@@ -7,15 +7,33 @@ const {
 // ---------------------------------------------------------------
 
 const homeTrangChu = (req, res) => {
+    // let account = req.body.taikhoan;
+    // var sessions
+    // req.session.loggedIn = true
+	// req.session.account = account
+    // sessions=req.session;
+    // console.log(sessions);
+
+
     res.render("TrangChu/home.ejs")
 }
 
 const getHomePage = async (req, res) => {
+    var sessions = req.session;
+    let account = sessions.account
+    let loggedIn = sessions.loggedIn
+    let ten = sessions.ten
+    
+    console.log(sessions);
+    console.log(account);
+    console.log(loggedIn);
+    console.log(ten);
+
     let allSP = await getAllSP()            // lấy dữ liệu tất cả sản phẩm 
     let allSpNam = await getAllBoy_Girl(1)  // lấy dữ liệu tất cả sản phẩm là nam
     let allSpNu = await getAllBoy_Girl(2)  // lấy dữ liệu tất cả sản phẩm là nữ
 
-    return res.render("TrangChu/home.ejs", {listSP: allSP, spNam: allSpNam, spNu: allSpNu})
+    return res.render("TrangChu/home.ejs", {listSP: allSP, spNam: allSpNam, spNu: allSpNu, logIn: loggedIn, account})
 }
 
 // dang nhap

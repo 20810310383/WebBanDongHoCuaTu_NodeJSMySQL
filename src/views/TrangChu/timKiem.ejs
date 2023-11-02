@@ -87,10 +87,22 @@
                         <p>Call US :- <a href="#">0972138493</a></p>
                     </div>
                     <div class="our-link">
-                        <ul>
-                            <li><a href="#">My Account</a></li>
-                            <li><a href="#">Our location</a></li>
-                            <li><a href="#">Contact Us</a></li>
+                        <ul>                                 
+                            <% if (logIn) { %>
+                                <li>
+                                    <span style="font-size: 20px; color: white; font-weight: bold;">
+                                        Xin Chào: <span style="color: red;"><%= account %></span>
+                                    </span>
+                                </li>
+                                <li>
+                                    <a style="font-size: 16px; font-weight: bold;" href="/dang-xuat">Đăng Xuất</a>
+                                </li>
+                            <% } else { %>
+                                <li><a style="font-size: 16px; font-weight: bold;" href="/login-kh">Đăng Nhập</a></li>
+                            <% } %> 
+                            <!-- <li><a style="font-size: 16px; font-weight: bold;" href="/login-kh">Đăng Nhập</a></li> -->
+                            <!-- <li><a href="#">Our location</a></li>
+                            <li><a href="#">Contact Us</a></li> -->
                         </ul>
                     </div>
                 </div>
@@ -131,7 +143,12 @@
                             </ul>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="#">Contact Us</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Khác</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Khác</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/form-login-Admin">Admin</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->

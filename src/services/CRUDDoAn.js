@@ -42,12 +42,50 @@ const getUserId = async (spID) => {
     return IDCuaSP
 }
 
+// update san pham
+const updateUserById = async (Ten, Gia, GiaCu, SaleNew, Mota, Img, IDLoaiSanPham, SoLuongTon, SoLanBan, ID) => {
+    let [results, fields] = await connection.query(
+        `
+            UPDATE SanPham
+            SET Ten = ?, Gia = ?, GiaCu = ?, Sale_New = ?, MoTa = ?, Anh = ?, IDLoaiSanPham = ?, SoLuongTon = ?, SoLanBan = ?
+            WHERE ID = ?
+        `,
+        [Ten, Gia, GiaCu, SaleNew, Mota, Img, IDLoaiSanPham, SoLuongTon, SoLanBan, ID]
+    )
+}
+
+// hiển thị ra thong tin nguoi dung theo IDPhanQuyen
+const getByIDAdmin = async (PhanQuyenID) => {
+    let [results, fields] = await connection.query(
+        `select PhanQuyenID from NguoiDung where PhanQuyenID = ?`
+        ,
+        [PhanQuyenID]
+    )
+    return results
+}
+
+// xoa san pham
+const deleteUserById = async (ID) => {
+
+    let [results, fields] = await connection.query(
+        `
+            DELETE FROM SanPham WHERE ID = ?
+        `,
+        [ID]
+    )
+}
+
 
 module.exports = {
     getAllSP,
     getAllBoy_Girl,
     getSPSearch,
     getUserId,
+    getByIDAdmin,
+    updateUserById,
+    deleteUserById,
+
+
     
 
 }
