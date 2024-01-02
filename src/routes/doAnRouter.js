@@ -52,6 +52,7 @@ const router = express.Router();
 // -----------------------------------------------
 router.get('/', getHomePage)
 
+
 //router.get('/search', TrangTimKiem)
 router.post('/search-post', TrangTimKiem_post)
 

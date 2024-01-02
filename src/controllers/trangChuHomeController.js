@@ -33,8 +33,15 @@ const getHomePage = async (req, res) => {
     let allSpNam = await getAllBoy_Girl(1)  // lấy dữ liệu tất cả sản phẩm là nam
     let allSpNu = await getAllBoy_Girl(2)  // lấy dữ liệu tất cả sản phẩm là nữ
 
-    return res.render("TrangChu/home.ejs", {listSP: allSP, spNam: allSpNam, spNu: allSpNu, logIn: loggedIn, account})
+    // Hàm để định dạng số tiền thành chuỗi có ký tự VND
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    }
+
+    return res.render("TrangChu/home.ejs", {listSP: allSP, spNam: allSpNam, spNu: allSpNu, logIn: loggedIn, account, formatCurrency: formatCurrency})
 }
+
+
 
 // dang nhap
 const dangNhapKH_2 = async (req, res) => {
@@ -78,6 +85,7 @@ const dangNhapKH_2 = async (req, res) => {
 module.exports = {
     homeTrangChu,
     getHomePage,
+    
     
     
 }

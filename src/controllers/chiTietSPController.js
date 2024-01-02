@@ -29,7 +29,12 @@ const getChiTietSP = async (req, res) => {
 
     let allSPCT = await getAllSP()            // lấy dữ liệu tất cả sản phẩm 
 
-    res.render("TrangChu/chiTietSP.ejs", {CTSanPham: sanpam, listSP: allSPCT, logIn: loggedIn, account})
+    // Hàm để định dạng số tiền thành chuỗi có ký tự VND
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    }
+
+    res.render("TrangChu/chiTietSP.ejs", {CTSanPham: sanpam, listSP: allSPCT, logIn: loggedIn, account, formatCurrency: formatCurrency})
 }
 
 

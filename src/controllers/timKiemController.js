@@ -35,8 +35,13 @@ const TrangTimKiem_post = async (req, res) => {
 
     console.log(tenSP);
 
+    // Hàm để định dạng số tiền thành chuỗi có ký tự VND
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    }
+
     //res.redirect("TrangChu/timKiem.ejs")
-    res.render("TrangChu/timKiem.ejs", {listSearch: timkiemSp, logIn: loggedIn, account})
+    res.render("TrangChu/timKiem.ejs", {listSearch: timkiemSp, logIn: loggedIn, account, formatCurrency:formatCurrency})
 }
 
 

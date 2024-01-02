@@ -43,14 +43,14 @@ const getUserId = async (spID) => {
 }
 
 // update san pham
-const updateUserById = async (Ten, Gia, GiaCu, SaleNew, Mota, Img, IDLoaiSanPham, SoLuongTon, SoLanBan, ID) => {
+const updateUserById = async (Ten, Gia, GiaCu, SaleNew, Mota, Img, Img2, Img3, IDLoaiSanPham, SoLuongTon, SoLanBan, ID) => {
     let [results, fields] = await connection.query(
         `
             UPDATE SanPham
-            SET Ten = ?, Gia = ?, GiaCu = ?, Sale_New = ?, MoTa = ?, Anh = ?, IDLoaiSanPham = ?, SoLuongTon = ?, SoLanBan = ?
+            SET Ten = ?, Gia = ?, GiaCu = ?, Sale_New = ?, MoTa = ?, Anh = ?, HinhAnh2 = ?, HinhAnh3 = ?,  IDLoaiSanPham = ?, SoLuongTon = ?, SoLanBan = ?
             WHERE ID = ?
         `,
-        [Ten, Gia, GiaCu, SaleNew, Mota, Img, IDLoaiSanPham, SoLuongTon, SoLanBan, ID]
+        [Ten, Gia, GiaCu, SaleNew, Mota, Img, Img2, Img3, IDLoaiSanPham, SoLuongTon, SoLanBan, ID]
     )
 }
 
@@ -75,6 +75,18 @@ const deleteUserById = async (ID) => {
     )
 }
 
+// them san pham  -- chưa dùng đến, viết tạm
+const insertSanPham = async (Ten, Gia, GiaCu, SaleNew, Mota, Img, Img2, Img3, IdLoaiSP, SoLuongTon, SoLanBan) => {
+
+    let [results, fields] = await connection.query(
+        `
+        INSERT INTO SanPham (Ten, Gia, GiaCu, Sale_New, MoTa, Anh, HinhAnh2, HinhAnh3, IDLoaiSanPham, SoLuongTon, SoLanBan)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `,
+        [Ten, Gia, GiaCu, SaleNew, Mota, Img, Img2, Img3, IdLoaiSP, SoLuongTon, SoLanBan]
+    )
+}
+
 
 module.exports = {
     getAllSP,
@@ -84,7 +96,7 @@ module.exports = {
     getByIDAdmin,
     updateUserById,
     deleteUserById,
-
+    insertSanPham,
 
     
 
